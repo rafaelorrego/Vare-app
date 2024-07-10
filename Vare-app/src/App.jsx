@@ -9,7 +9,6 @@ function App() {
     <div className="App flex">
       <Navbar />
       <div className="ml-64 p-4 flex-1">
-       
         <main className="p-4">
           <section id="products">
             <ProductList />
@@ -27,3 +26,5 @@ function App() {
 }
 
 export default App;
+
+

@@ -3,9 +3,11 @@ import ProductCard from './ProductCard';
 
 const products = [
   { id: 1, name: 'Pizza', description: 'Pizza Normal', preci: 30.000, image: 'https://via.placeholder.com/150' },
-  { id: 2, name: 'Burger', description: 'Hamburguesa doble ', price: 25.000, image: 'https://via.placeholder.com/150' },
-  { id: 3, name: 'Lomito Arabe', description: 'lomito arabe mixto', price: 20.000, image: 'https://via.placeholder.com/150' },
+  { id: 2, name: 'Burger', description: 'Hamburguesa, tomate, huevo salsa de la casa y cebolla caramelizada  ', price: 25.000, image: 'https://via.placeholder.com/150' },
+  { id: 3, name: 'Lomito Arabe', description: 'carne, huevo,salsa de ajo, pollo repollo picado pan arabe', price: 20.000, image: 'https://via.placeholder.com/150' },
   { id: 4, name: 'Papas Fritas', description: 'Papas con cheddar ', price: 20.000, image: 'https://via.placeholder.com/150' },
+  { id: 5, name: 'Chivito Uruguayo', description: 'pan, carne, huevo, morron salteado, huevo y  salsa de la casa  ', price: 20.000, image: 'https://via.placeholder.com/150' },
+  { id: 6, name: 'Salchipapas', description: 'papas fritas, huevo, pancho picado y salsa de la casa ', price: 20.000, image: 'https://via.placeholder.com/150' },
 ];
 
 const ProductList = () => {
