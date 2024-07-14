@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProductList from './components/ProductList';
 import ContactForm from './components/ContactForm';
 import Navbar from './components/Navbar';
 import Services from './components/Services';
 
 function App() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login');
+    }
+  }, [navigate]);
+
   return (
     <div className="App flex">
       <Navbar />
@@ -26,5 +36,3 @@ function App() {
 }
 
 export default App;
-
-

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isRegistering, setIsRegistering] = useState(false); // Opcional si también tienes registro
+  const [isRegistering, setIsRegistering] = useState(false); 
   const navigate = useNavigate();
 
   // Función para manejar el inicio de sesión
@@ -22,7 +22,7 @@ const Login = () => {
   // Función para manejar el registro 
   const handleRegister = (e) => {
     e.preventDefault();
-    // Implementa la lógica de registro porsi necesito
+   //podemos hacver alguna logica dependiendo de lo que queramos 
     alert('Registro exitoso');
     // Redirigir al usuario a la página principal después de registrarse
     navigate('/');
@@ -81,4 +81,3 @@ const Login = () => {
 };
 
 export default Login;
-
