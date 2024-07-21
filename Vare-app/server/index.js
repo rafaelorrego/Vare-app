@@ -1,11 +1,11 @@
-reqrequire('dotenv').config(); // Cargar variables de entorno desde .env
+require('dotenv').config(); 
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
-const connectDB = require('./connectDB'); 
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const User = require('./models/user'); // Asegúrate de que el nombre del archivo sea correcto y coincida con tu modelo de usuario
+const User = require('./models/User'); 
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -17,7 +17,6 @@ app.use(express.json()); // Para parsear JSON en las solicitudes
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true,
 })
 .then(() => {
   console.log('Connected to MongoDB');
@@ -33,7 +32,7 @@ app.post('/register', async (req, res) => {
     // Verificar si el usuario ya existe
     const existingUser = await User.findOne({ username });
     if (existingUser) {
-      return res.status(400).json({ message: 'Username already exists' });
+      return res.status(400).json({ message: 'El nombre de usuario ya existe' });
     }
 
     // Hash de la contraseña
@@ -43,7 +42,7 @@ app.post('/register', async (req, res) => {
     const newUser = new User({ username, password: hashedPassword });
     await newUser.save();
     
-    res.status(201).json({ message: 'User registered successfully' });
+    res.status(201).json({ message: 'Se ha registrado exitosamente' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -55,13 +54,13 @@ app.post('/login', async (req, res) => {
     // Verificar si el usuario existe
     const user = await User.findOne({ username });
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: 'No se encontró el usuario' });
     }
 
     // Verificar la contraseña
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+      return res.status(401).json({ message: 'Credenciales incorrectas' });
     }
 
     // Generar token JWT
@@ -76,5 +75,5 @@ app.post('/login', async (req, res) => {
 
 // Iniciar el servidor
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`El servidor corre en el puerto ${PORT}`);
 });
