@@ -4,39 +4,66 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isRegistering, setIsRegistering] = useState(false); 
+  const [isRegistering, setIsRegistering] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  // Función para manejar el inicio de sesión
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Validación básica para un usuario de prueba
-    if (username === 'rafajara986@gmail.com' && password === '54321') {
-      // Redirigir al usuario a la página principal después del inicio de sesión exitoso
-      navigate('/');
-    } else {
-      alert('Credenciales incorrectas');
+    try {
+      const response = await fetch('http://localhost:5000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        localStorage.setItem('token', data.token);
+        navigate('/');
+      } else {
+        setError(data.message);
+      }
+    } catch (error) {
+      setError('Error al iniciar sesión');
     }
   };
 
-  // Función para manejar el registro 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-   //podemos hacver alguna logica dependiendo de lo que queramos 
-    alert('Registro exitoso');
-    // Redirigir al usuario a la página principal después de registrarse
-    navigate('/');
+    try {
+      const response = await fetch('http://localhost:5000/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert('Registro exitoso');
+        navigate('/');
+      } else {
+        setError(data.message);
+      }
+    } catch (error) {
+      setError('Error al registrarse');
+    }
   };
 
-  // Función para alternar entre el modo de inicio de sesión y registro 
   const toggleRegisterMode = () => {
     setIsRegistering(!isRegistering);
+    setError('');
   };
 
   return (
     <div className="max-w-md mx-auto mt-8 p-4 border rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold mb-4 text-center">{isRegistering ? 'Registro' : 'Inicio de Sesión'}</h2>
       <form onSubmit={isRegistering ? handleRegister : handleLogin}>
+        {error && <p className="text-red-500">{error}</p>}
         <div className="mb-4">
           <label htmlFor="username" className="block text-gray-700">Usuario</label>
           <input

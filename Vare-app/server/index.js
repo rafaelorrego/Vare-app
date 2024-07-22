@@ -1,10 +1,10 @@
-require('dotenv').config(); 
+require('dotenv').config();
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const User = require('./models/User'); 
+const User = require('./models/User');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -67,7 +67,7 @@ app.post('/login', async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     // Enviar el token como respuesta
-    res.status(200).json({ token });
+    res.status(200).json({ token, redirectUrl: '/home' }); // Añadir la URL de redirección
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
